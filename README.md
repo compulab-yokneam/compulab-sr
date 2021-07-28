@@ -32,6 +32,10 @@ tar -C tools -xf downloads/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu.tar
 export CROSS_COMPILE64=$(pwd)/tools/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
 export CROSS_COMPILE=$(pwd)/tools/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
 ```
+## Install Python Cryptodome ##
+```bash
+pip3 install pycryptodome
+```
 
 ## Build
 
