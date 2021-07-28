@@ -1,0 +1,28 @@
+From 050076b47faa1aa13bd5bb409c9232769740cf98 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Tue, 27 Jul 2021 00:02:51 +0300
+Subject: [PATCH 2/2] Makefile: Add imx-boot.bin target
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 9615f8b3a0..ef5233d7bb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1425,6 +1425,10 @@ else
+ SPL_PAYLOAD := u-boot.bin
+ endif
+ 
++imx-boot.bin: flash.bin u-boot.itb
++	@dd if=flash.bin of=$@ bs=512 seek=0 conv=notrunc 2>/dev/null
++	@dd if=u-boot.itb of=$@ bs=512 seek=702 conv=notrunc 2>/dev/null
++
+ SPL_IMAGE := $(CONFIG_SPL_IMAGE:"%"=%)
+ 
+ OBJCOPYFLAGS_u-boot-with-spl.bin = -I binary -O binary \
+-- 
+2.17.1
+

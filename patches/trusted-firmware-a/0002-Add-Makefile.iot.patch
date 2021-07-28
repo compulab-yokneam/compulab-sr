@@ -1,0 +1,50 @@
+From e018ce4e9f0dd768c11d881061e5ef4c1a8ad201 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Tue, 27 Jul 2021 15:43:10 +0300
+Subject: [PATCH 2/2] Add Makefile.iot
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ Makefile.iot | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+ create mode 100644 Makefile.iot
+
+diff --git a/Makefile.iot b/Makefile.iot
+new file mode 100644
+index 000000000..41b972a9e
+--- /dev/null
++++ b/Makefile.iot
+@@ -0,0 +1,30 @@
++DEFAULT_OUT = build/imx8mm/release
++OUTPUT_DIR ?= build.iotgate
++INSTALL_DIR ?= ../image.d
++
++MAKE_OPTIONS = ARCH=aarch64 PLAT=imx8mm
++MAKE_OPTIONS += SPD=opteed BL32_BASE=0x7e000000 IMX_BOOT_UART_BASE=0x30880000
++MAKE_OPTIONS += NEED_BL32=yes NEED_BL33=yes NEED_BL2=yes BUILD_BL2=1
++MAKE_OPTIONS += MBEDTLS_DIR=../mbedtls
++MAKE_OPTIONS += BL32=$(INSTALL_DIR)/tee-header_v2.bin
++MAKE_OPTIONS += BL32_EXTRA1=$(INSTALL_DIR)/tee-pager_v2.bin
++MAKE_OPTIONS += BL32_EXTRA2=$(INSTALL_DIR)/tee-pageable_v2.bin
++MAKE_OPTIONS += BL33=$(INSTALL_DIR)/u-boot.bin
++MAKE_OPTIONS += LOG_LEVEL=50 USE_TBBR_DEFS=1 GENERATE_COT=1 TRUSTED_BOARD_BOOT=1
++
++IMAGES += $(INSTALL_DIR)/tee-header_v2.bin
++IMAGES += $(INSTALL_DIR)/tee-pager_v2.bin
++IMAGES += $(INSTALL_DIR)/tee-pageable_v2.bin
++IMAGES += $(INSTALL_DIR)/u-boot.bin
++
++clean:
++	make -f Makefile clean
++	rm -rf $(OUTPUT_DIR) $(DEFAULT_OUT)
++
++image: $(IMAGES)	
++	make -j 8 -f Makefile O=$(OUTPUT_DIR) $(MAKE_OPTIONS) fip bl2 bl31
++
++install: image
++	mkdir -p $(INSTALL_DIR)
++	cp $(DEFAULT_OUT)/bl2.bin $(DEFAULT_OUT)/fip.bin $(INSTALL_DIR)/
++	mv $(INSTALL_DIR)/bl2.bin $(INSTALL_DIR)/bl31.bin
+-- 
+2.17.1
+
