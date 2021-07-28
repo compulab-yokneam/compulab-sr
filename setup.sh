@@ -15,7 +15,7 @@ do_pass() {
 
 do_patch() {
 	echo ${FUNCNAME[0]}
-	git -C ${S} checkout ${branch} || \
+	git -C ${S} checkout ${branch} 2>/dev/null || \
 		( git -C ${S} checkout -b ${branch} && git -C ${S} am $(pwd)/${P}/*.patch )
 }
 
