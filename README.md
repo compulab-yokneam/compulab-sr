@@ -7,7 +7,7 @@
 mkdir compulab-sr-build && cd compulab-sr-build
 ```
 
-* Initialize and sync repo manifest:
+* Initialize and sync repo manifest
 ```bash
 repo init -u https://github.com/compulab-yokneam/compulab-sr-manifest -m compulab.xml
 repo sync
@@ -27,7 +27,7 @@ wget --directory-prefix downloads/ wget --directory-prefix downloads/ https://de
 tar -C tools -xf downloads/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu.tar.xz
 ```
 
-* Set `CROSS_COMPILE` environment variable:
+* Set `CROSS_COMPILE` environment variable
 ```bash
 export CROSS_COMPILE64=$(pwd)/tools/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
 export CROSS_COMPILE=$(pwd)/tools/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
