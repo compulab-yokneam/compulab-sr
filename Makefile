@@ -9,7 +9,7 @@ all:	$(IMAGE_D)
 	CROSS_COMPILE64=$(CROSS_COMPILE64) CROSS_COMPILE=$(CROSS_COMPILE64) ARCH=arm make -C $(SOURCES)/optee_os -f Makefile.iot O=$(IMAGE_D) INSTALL_DIR=$(IMAGE_D) -j 8 install
 	CROSS_COMPILE=$(CROSS_COMPILE64) ARCH=arm64 make -C $(SOURCES)/trusted-firmware-a -f Makefile.iot O=$(IMAGE_D) INSTALL_DIR=$(IMAGE_D) -j 8 install
 	make -C $(SOURCES)/firmware INSTALL_DIR=$(IMAGE_D) install
-	CROSS_COMPILE=$(CROSS_COMPILE64) ARCH=arm64 make -C $(SOURCES)/u-boot O=$(IMAGE_D) -j 8 imx-boot.bin
+	CROSS_COMPILE=$(CROSS_COMPILE64) ARCH=arm64 make -C $(SOURCES)/u-boot O=$(IMAGE_D) -j 8 imx-boot.bin capsule1.bin
 
 $(IMAGE_D):
 	mkdir -p $@
