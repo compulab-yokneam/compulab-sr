@@ -1,0 +1,29 @@
+From 7c1905f2f9727b39d77b10903726b331e771e9c1 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sun, 15 Aug 2021 16:49:29 +0300
+Subject: [PATCH 4/4] imx8mm-cl-iot-gate: Add capsule1.bin target
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ Makefile | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index ef5233d7bb..9d63c7847e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1429,6 +1429,11 @@ imx-boot.bin: flash.bin u-boot.itb
+ 	@dd if=flash.bin of=$@ bs=512 seek=0 conv=notrunc 2>/dev/null
+ 	@dd if=u-boot.itb of=$@ bs=512 seek=702 conv=notrunc 2>/dev/null
+ 
++capsule1.bin: flash.bin u-boot.itb tools
++	cp $(srctree)/board/compulab/imx8mm-cl-iot-gate/capsule1.its $(objtree)/capsule1.its
++	$(objtree)/tools/mkimage -f capsule1.its capsule1.itb
++	$(objtree)/tools/mkeficapsule --fit capsule1.itb --index 1 capsule1.bin
++
+ SPL_IMAGE := $(CONFIG_SPL_IMAGE:"%"=%)
+ 
+ OBJCOPYFLAGS_u-boot-with-spl.bin = -I binary -O binary \
+-- 
+2.17.1
+

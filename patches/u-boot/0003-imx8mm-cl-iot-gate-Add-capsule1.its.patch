@@ -1,0 +1,51 @@
+From 415c7dc9431342e639a9999fc8bc8c47251cef62 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sun, 15 Aug 2021 16:49:06 +0300
+Subject: [PATCH 3/4] imx8mm-cl-iot-gate: Add capsule1.its
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ .../compulab/imx8mm-cl-iot-gate/capsule1.its  | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+ create mode 100644 board/compulab/imx8mm-cl-iot-gate/capsule1.its
+
+diff --git a/board/compulab/imx8mm-cl-iot-gate/capsule1.its b/board/compulab/imx8mm-cl-iot-gate/capsule1.its
+new file mode 100644
+index 0000000000..90625e6d46
+--- /dev/null
++++ b/board/compulab/imx8mm-cl-iot-gate/capsule1.its
+@@ -0,0 +1,31 @@
++/dts-v1/;
++
++/ {
++	description = "Automatic U-Boot environment update";
++	#address-cells = <2>;
++
++	images {
++		flash-bin {
++			description = "U-Boot SPL";
++			data = /incbin/("flash.bin");
++			compression = "none";
++			type = "firmware";
++			arch = "arm64";
++			load = <0x7E1000>;
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		u-boot-itb {
++			description = "U-Boot binary";
++			data = /incbin/("u-boot.itb");
++			compression = "none";
++			type = "firmware";
++			arch = "arm64";
++			load = <0x40200000>;
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++	};
++};
+-- 
+2.17.1
+
