@@ -1,7 +1,7 @@
-From 854584952d93a6981292d48543196c9a062e783a Mon Sep 17 00:00:00 2001
+From 47da165df9d3a98b735bf2b7911c2448ed0e0134 Mon Sep 17 00:00:00 2001
 From: Valentin Raevsky <valentin@compulab.co.il>
-Date: Mon, 16 Aug 2021 15:55:49 +0300
-Subject: [PATCH 5/5] imx8mm-cl-iot-gate: Enable ARM validation config
+Date: Wed, 18 Aug 2021 23:16:40 +0300
+Subject: [PATCH 08/26] imx8mm-cl-iot-gate: Enable ARM validation config
 
 Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
 ---
@@ -32,11 +32,11 @@ index 7f5c794bf5..cc9cebd761 100644
 +
  endif
 diff --git a/configs/imx8mm-cl-iot-gate_defconfig b/configs/imx8mm-cl-iot-gate_defconfig
-index e857424a51..bea4d85f19 100644
+index f3dd0bf477..dae0ba5ad3 100644
 --- a/configs/imx8mm-cl-iot-gate_defconfig
 +++ b/configs/imx8mm-cl-iot-gate_defconfig
-@@ -15,6 +15,7 @@ CONFIG_SYS_I2C_MXC_I2C3=y
- CONFIG_DM_GPIO=y
+@@ -16,6 +16,7 @@ CONFIG_DM_GPIO=y
+ CONFIG_DEFAULT_DEVICE_TREE="imx8mm-cl-iot-gate"
  CONFIG_SPL_TEXT_BASE=0x7E1000
  CONFIG_TARGET_IMX8MM_CL_IOT_GATE=y
 +CONFIG_ARM_VALIDATION=y

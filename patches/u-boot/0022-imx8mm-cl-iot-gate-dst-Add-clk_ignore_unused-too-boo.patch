@@ -1,0 +1,27 @@
+From 162332c4f79dd0c66fe6ae7a11f0a463b29872a6 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sun, 22 Aug 2021 13:39:23 +0300
+Subject: [PATCH 22/26] imx8mm-cl-iot-gate: dst: Add clk_ignore_unused too
+ bootargs, tbfixed
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm-cl-iot-gate.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate.dts b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+index 89f7ba702d..6e4662a339 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate.dts
++++ b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+@@ -13,7 +13,7 @@
+ 	compatible = "sb-iotgimx8", "cpl,ucm-imx8m-mini", "fsl,imx8mm-evk", "fsl,imx8mm";
+ 
+ 	chosen {
+-		bootargs = "console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200";
++		bootargs = "console=ttymxc2,115200 earlycon=ec_imx6q,0x30880000,115200 clk_ignore_unused";
+ 		stdout-path = &uart3;
+ 	};
+ 
+-- 
+2.17.1
+

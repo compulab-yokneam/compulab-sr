@@ -1,0 +1,25 @@
+From 5e847a97839cca5e1c6ffb92a0019dba49a664ba Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 20 Aug 2021 21:08:41 +0300
+Subject: [PATCH 15/26] imx8mm-cl-iot-gate: dts: Set reg_vusb_5v always-on
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm-cl-iot-gate.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate.dts b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+index 766e04d484..688333f068 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate.dts
++++ b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+@@ -42,6 +42,7 @@
+ 		gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
+ 		regulator-boot-on;
+ 		enable-active-high;
++		regulator-always-on;
+ 	};
+ 
+ 	reg_usdhc2_vqmmc: regulator-usdhc2_1v8 {
+-- 
+2.17.1
+

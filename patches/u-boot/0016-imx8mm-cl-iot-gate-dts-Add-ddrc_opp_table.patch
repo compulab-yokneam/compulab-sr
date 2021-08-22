@@ -1,0 +1,44 @@
+From 1e0c0a24330fb89248fb0acf74cd9093e07762f8 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 20 Aug 2021 21:09:25 +0300
+Subject: [PATCH 16/26] imx8mm-cl-iot-gate: dts: Add ddrc_opp_table
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm-cl-iot-gate.dts | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate.dts b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+index 688333f068..c44c0dc019 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate.dts
++++ b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+@@ -65,6 +65,26 @@
+ 	};
+ };
+ 
++&ddrc {
++	operating-points-v2 = <&ddrc_opp_table>;
++
++	ddrc_opp_table: opp-table {
++		compatible = "operating-points-v2";
++
++		opp-25M {
++			opp-hz = /bits/ 64 <25000000>;
++		};
++
++		opp-100M {
++			opp-hz = /bits/ 64 <100000000>;
++		};
++
++		opp-750M {
++			opp-hz = /bits/ 64 <750000000>;
++		};
++	};
++};
++
+ &A53_0 {
+ 	cpu-supply = <&buck2_reg>;
+ };
+-- 
+2.17.1
+

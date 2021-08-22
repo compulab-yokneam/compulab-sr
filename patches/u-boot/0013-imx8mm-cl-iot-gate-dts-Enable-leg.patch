@@ -1,0 +1,47 @@
+From 8fa0d69fede3ce93998da07f95e2d25309ab148e Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 20 Aug 2021 21:07:21 +0300
+Subject: [PATCH 13/26] imx8mm-cl-iot-gate: dts: Enable leg
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm-cl-iot-gate.dts | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate.dts b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+index baa404cc8a..0c945d115b 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate.dts
++++ b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+@@ -17,6 +17,18 @@
+ 		stdout-path = &uart3;
+ 	};
+ 
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio_led>;
++
++		status {
++			label = "status";
++			gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++	};
++
+ 	reg_vusb_5v: regulator-usdhc2 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VUSB_5V";
+@@ -511,4 +523,10 @@
+ 			MX8MM_IOMUXC_GPIO1_IO02_WDOG1_WDOG_B	0xc6
+ 		>;
+ 	};
++
++	pinctrl_gpio_led: gpioledgrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_GPIO1_IO12_GPIO1_IO12	0x19
++		>;
++	};
+ };
+-- 
+2.17.1
+

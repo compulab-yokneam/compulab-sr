@@ -1,0 +1,33 @@
+From 7a05e2ca4a74118ffda49b3689976b03536b0953 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sat, 21 Aug 2021 21:48:12 +0300
+Subject: [PATCH 20/26] mx8mm-cl-iot-gate: config: Change watchdog config
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ configs/imx8mm-cl-iot-gate_defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configs/imx8mm-cl-iot-gate_defconfig b/configs/imx8mm-cl-iot-gate_defconfig
+index 365714609d..d23971294b 100644
+--- a/configs/imx8mm-cl-iot-gate_defconfig
++++ b/configs/imx8mm-cl-iot-gate_defconfig
+@@ -50,6 +50,7 @@ CONFIG_CMD_I2C=y
+ CONFIG_CMD_MMC=y
+ CONFIG_CMD_USB=y
+ CONFIG_CMD_USB_MASS_STORAGE=y
++CONFIG_CMD_WDT=y
+ CONFIG_CMD_SNTP=y
+ CONFIG_CMD_CACHE=y
+ CONFIG_CMD_EFIDEBUG=y
+@@ -137,6 +138,7 @@ CONFIG_SDP_LOADADDR=0x40400000
+ CONFIG_USB_GADGET_DOWNLOAD=y
+ CONFIG_USB_HOST_ETHER=y
+ CONFIG_USB_ETHER_ASIX88179=y
++# CONFIG_WATCHDOG_AUTOSTART is not set
+ CONFIG_IMX_WATCHDOG=y
+ CONFIG_SPL_TINY_MEMSET=y
+ CONFIG_TPM=y
+-- 
+2.17.1
+

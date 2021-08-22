@@ -1,7 +1,7 @@
-From 415c7dc9431342e639a9999fc8bc8c47251cef62 Mon Sep 17 00:00:00 2001
+From 839a9a21bfc3738a68496b3a75936c4d1fe05b0f Mon Sep 17 00:00:00 2001
 From: Valentin Raevsky <valentin@compulab.co.il>
 Date: Sun, 15 Aug 2021 16:49:06 +0300
-Subject: [PATCH 3/4] imx8mm-cl-iot-gate: Add capsule1.its
+Subject: [PATCH 02/26] imx8mm-cl-iot-gate: Add capsule1.its
 
 Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
 ---

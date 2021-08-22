@@ -1,0 +1,95 @@
+From 06bc608834c6e942720e13b4b8a797da829fd488 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sun, 22 Aug 2021 14:42:40 +0300
+Subject: [PATCH 24/26] imx8mm-cl-iot-gate: env: Improve env device logics
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ .../imx8mm-cl-iot-gate/imx8mm-cl-iot-gate.c   | 43 ++++++++++++++++---
+ 1 file changed, 36 insertions(+), 7 deletions(-)
+
+diff --git a/board/compulab/imx8mm-cl-iot-gate/imx8mm-cl-iot-gate.c b/board/compulab/imx8mm-cl-iot-gate/imx8mm-cl-iot-gate.c
+index fb3443d425..b0dbfae56d 100644
+--- a/board/compulab/imx8mm-cl-iot-gate/imx8mm-cl-iot-gate.c
++++ b/board/compulab/imx8mm-cl-iot-gate/imx8mm-cl-iot-gate.c
+@@ -9,6 +9,7 @@
+ #include <init.h>
+ #include <miiphy.h>
+ #include <netdev.h>
++#include <mmc.h>
+ 
+ #include <asm/arch/imx8mm_pins.h>
+ #include <asm/mach-imx/iomux-v3.h>
+@@ -18,9 +19,13 @@
+ #include <asm-generic/gpio.h>
+ #include <asm/mach-imx/gpio.h>
+ #include <linux/delay.h>
++#include "ddr/ddr.h"
+ 
+ DECLARE_GLOBAL_DATA_PTR;
+ 
++static int env_dev = -1;
++static int env_part= -1;
++
+ #define FEC_RST_PAD IMX_GPIO_NR(1, 10)
+ static iomux_v3_cfg_t const fec1_rst_pads[] = {
+ 	IMX8MM_PAD_GPIO1_IO10_GPIO1_IO10 | MUX_PAD_CTRL(NO_PAD_CTRL),
+@@ -80,11 +85,6 @@ int board_init(void)
+ 	return 0;
+ }
+ 
+-int board_mmc_get_env_dev(int devno)
+-{
+-	return devno;
+-}
+-
+ int board_late_init(void)
+ {
+ 	if (IS_ENABLED(CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG)) {
+@@ -95,8 +95,6 @@ int board_late_init(void)
+ 	return 0;
+ }
+ 
+-#include "ddr/ddr.h"
+-
+ int board_phys_sdram_size(phys_size_t *size)
+ {
+ 	struct lpddr4_tcm_desc *lpddr4_tcm_desc = (struct lpddr4_tcm_desc *) TCM_DATA_CFG;
+@@ -124,3 +122,34 @@ ulong board_get_usable_ram_top(ulong total_size)
+ 
+         return gd->ram_top;
+ }
++
++int board_mmc_get_env_dev(int devno)
++{
++	const ulong user_env_devno = env_get_hex("env_dev", ULONG_MAX);
++	if (user_env_devno != ULONG_MAX) {
++		printf("User Environment dev# is (%lu)\n", user_env_devno);
++		return (int)user_env_devno;
++	}
++	return devno;
++}
++
++static int _mmc_get_env_part(struct mmc *mmc)
++{
++	const ulong user_env_part = env_get_hex("env_part", ULONG_MAX);
++	if (user_env_part != ULONG_MAX) {
++		printf("User Environment part# is (%lu)\n", user_env_part);
++		return (int)user_env_part;
++	}
++
++	return EXT_CSD_EXTRACT_BOOT_PART(mmc->part_config);
++}
++
++uint mmc_get_env_part(struct mmc *mmc)
++{
++	if (mmc->part_support && mmc->part_config != MMCPART_NOAVAILABLE) {
++		uint partno = _mmc_get_env_part(mmc);
++		env_part = partno;
++		return partno;
++	}
++	return 0;
++}
+-- 
+2.17.1
+

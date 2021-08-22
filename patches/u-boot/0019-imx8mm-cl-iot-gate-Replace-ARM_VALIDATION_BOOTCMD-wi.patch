@@ -1,0 +1,78 @@
+From 0b9c7c88af65978782f72a95ce436e602d8e9620 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 20 Aug 2021 21:36:15 +0300
+Subject: [PATCH 19/26] imx8mm-cl-iot-gate: Replace ARM_VALIDATION_BOOTCMD with
+ SOM_BOOTCMD_ENABLE
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ board/compulab/imx8mm-cl-iot-gate/Kconfig | 16 ++++++++--------
+ configs/imx8mm-cl-iot-gate_defconfig      |  2 +-
+ include/configs/imx8mm-cl-iot-gate.h      |  4 ++--
+ 3 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/board/compulab/imx8mm-cl-iot-gate/Kconfig b/board/compulab/imx8mm-cl-iot-gate/Kconfig
+index cc9cebd761..dcdf08f167 100644
+--- a/board/compulab/imx8mm-cl-iot-gate/Kconfig
++++ b/board/compulab/imx8mm-cl-iot-gate/Kconfig
+@@ -9,16 +9,16 @@ config SYS_VENDOR
+ config SYS_CONFIG_NAME
+ 	default "imx8mm-cl-iot-gate"
+ 
+-config ARM_VALIDATION
+-	bool "Enable ARM validation"
++config SOM_BOOTCMD_ENABLE
++	bool "Enable SOM bootcmd"
+ 	help
+-	   This mode requires a predfined bootcmd.
++	   Enables the SOM bootcmd.
+ 
+-config ARM_VALIDATION_BOOTCMD
+-	string "ARM validation bootcmd"
+-	default "fdt addr ${fdtcontroladdr}; load mmc 2 ${kernel_addr_r} EFI/BOOT/bootaa64.efi; bootefi ${kernel_addr_r} ${fdtcontroladdr};"
+-	depends on ARM_VALIDATION
++config SOM_BOOTCMD
++	string "SOM bootcmd"
++	default "setenv fdt_addr_r ${fdtcontroladdr}; run distro_bootcmd"
++	depends on SOM_BOOTCMD_ENABLE
+ 	help
+-	  This is the arm validation bootcmd.
++	  This is the SOM bootcmd.
+ 
+ endif
+diff --git a/configs/imx8mm-cl-iot-gate_defconfig b/configs/imx8mm-cl-iot-gate_defconfig
+index dcfe9327e4..365714609d 100644
+--- a/configs/imx8mm-cl-iot-gate_defconfig
++++ b/configs/imx8mm-cl-iot-gate_defconfig
+@@ -16,7 +16,7 @@ CONFIG_DM_GPIO=y
+ CONFIG_DEFAULT_DEVICE_TREE="imx8mm-cl-iot-gate"
+ CONFIG_SPL_TEXT_BASE=0x7E1000
+ CONFIG_TARGET_IMX8MM_CL_IOT_GATE=y
+-CONFIG_ARM_VALIDATION=y
++CONFIG_SOM_BOOTCMD_ENABLE=y
+ CONFIG_SPL_MMC_SUPPORT=y
+ CONFIG_SPL_SERIAL_SUPPORT=y
+ CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
+diff --git a/include/configs/imx8mm-cl-iot-gate.h b/include/configs/imx8mm-cl-iot-gate.h
+index ee26ec628b..1faf6390f5 100644
+--- a/include/configs/imx8mm-cl-iot-gate.h
++++ b/include/configs/imx8mm-cl-iot-gate.h
+@@ -11,13 +11,13 @@
+ #include <asm/arch/imx-regs.h>
+ #include <config_distro_bootcmd.h>
+ 
+-#ifdef CONFIG_ARM_VALIDATION
++#ifdef CONFIG_SOM_BOOTCMD_ENABLE
+ 
+ #ifdef CONFIG_BOOTCOMMAND
+ #undef CONFIG_BOOTCOMMAND
+ #endif
+ 
+-#define CONFIG_BOOTCOMMAND CONFIG_ARM_VALIDATION_BOOTCMD
++#define CONFIG_BOOTCOMMAND CONFIG_SOM_BOOTCMD
+ 
+ #endif
+ 
+-- 
+2.17.1
+

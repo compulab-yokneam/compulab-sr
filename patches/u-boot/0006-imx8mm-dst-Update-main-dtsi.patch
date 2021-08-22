@@ -1,0 +1,96 @@
+From 1bc5d72378cd513e567210cdc64cbe55fdbcbc95 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 18 Aug 2021 23:04:32 +0300
+Subject: [PATCH 06/26] imx8mm: dst: Update main dtsi
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm.dtsi | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/dts/imx8mm.dtsi b/arch/arm/dts/imx8mm.dtsi
+index b142b80734..ec8d6bf456 100644
+--- a/arch/arm/dts/imx8mm.dtsi
++++ b/arch/arm/dts/imx8mm.dtsi
+@@ -196,7 +196,7 @@
+ 	pmu {
+ 		compatible = "arm,armv8-pmuv3";
+ 		interrupts = <GIC_PPI 7
+-			     (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
++			     (GIC_CPU_MASK_SIMPLE(6) | IRQ_TYPE_LEVEL_HIGH)>;
+ 		interrupt-affinity = <&A53_0>, <&A53_1>, <&A53_2>, <&A53_3>;
+ 	};
+ 
+@@ -266,6 +266,11 @@
+ 		#size-cells = <1>;
+ 		ranges = <0x0 0x0 0x0 0x3e000000>;
+ 
++		caam_sm: caam-sm@100000 {
++			compatible = "fsl,imx6q-caam-sm";
++			reg = <0x100000 0x8000>;
++		};
++
+ 		aips1: bus@30000000 {
+ 			compatible = "fsl,aips-bus", "simple-bus";
+ 			reg = <0x30000000 0x400000>;
+@@ -510,7 +515,7 @@
+ 			};
+ 
+ 			gpr: iomuxc-gpr@30340000 {
+-				compatible = "fsl,imx8mm-iomuxc-gpr", "syscon";
++				compatible = "fsl,imx8mm-iomuxc-gpr", "fsl,imx6q-iomuxc-gpr", "syscon";
+ 				reg = <0x30340000 0x10000>;
+ 			};
+ 
+@@ -525,6 +530,10 @@
+ 				cpu_speed_grade: speed-grade@10 {
+ 					reg = <0x10 4>;
+ 				};
++
++				fec_mac_address: mac-address@640 {
++					reg = <0x90 6>;
++				};
+ 			};
+ 
+ 			anatop: anatop@30360000 {
+@@ -966,7 +975,7 @@
+ 			};
+ 
+ 			fec1: ethernet@30be0000 {
+-				compatible = "fsl,imx8mm-fec", "fsl,imx6sx-fec";
++				compatible = "fsl,imx8mm-fec", "fsl,imx8mq-fec", "fsl,imx6sx-fec";
+ 				reg = <0x30be0000 0x10000>;
+ 				interrupts = <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
+ 					     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>,
+@@ -1002,7 +1011,7 @@
+ 			ranges = <0x32c00000 0x32c00000 0x400000>;
+ 
+ 			usbotg1: usb@32e40000 {
+-				compatible = "fsl,imx8mm-usb", "fsl,imx7d-usb";
++				compatible = "fsl,imx8mm-usb", "fsl,imx7d-usb", "fsl,imx27-usb";
+ 				reg = <0x32e40000 0x200>;
+ 				interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&clk IMX8MM_CLK_USB1_CTRL_ROOT>;
+@@ -1022,7 +1031,7 @@
+ 			};
+ 
+ 			usbotg2: usb@32e50000 {
+-				compatible = "fsl,imx8mm-usb", "fsl,imx7d-usb";
++				compatible = "fsl,imx8mm-usb", "fsl,imx7d-usb", "fsl,imx27-usb";
+ 				reg = <0x32e50000 0x200>;
+ 				interrupts = <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&clk IMX8MM_CLK_USB1_CTRL_ROOT>;
+@@ -1041,6 +1050,10 @@
+ 				reg = <0x32e50200 0x200>;
+ 			};
+ 
++			pcie_phy: pcie-phy@32f00000 {
++				  compatible = "fsl,imx7d-pcie-phy";
++				  reg = <0x32f00000 0x10000>;
++			};
+ 		};
+ 
+ 		dma_apbh: dma-controller@33000000 {
+-- 
+2.17.1
+

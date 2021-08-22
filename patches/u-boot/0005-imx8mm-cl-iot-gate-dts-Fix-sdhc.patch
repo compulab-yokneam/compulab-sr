@@ -1,0 +1,38 @@
+From 33c1c248b6f9df92b8a3a8ed4fd3b624d5271586 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 18 Aug 2021 22:28:04 +0300
+Subject: [PATCH 05/26] imx8mm-cl-iot-gate: dts: Fix sdhc
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm-cl-iot-gate-u-boot.dtsi | 1 +
+ arch/arm/dts/imx8mm-cl-iot-gate.dts         | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate-u-boot.dtsi b/arch/arm/dts/imx8mm-cl-iot-gate-u-boot.dtsi
+index 3226a244a9..2fb77d195f 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate-u-boot.dtsi
++++ b/arch/arm/dts/imx8mm-cl-iot-gate-u-boot.dtsi
+@@ -99,6 +99,7 @@
+ 
+ &usdhc1 {
+ 	u-boot,dm-spl;
++	status = "disabled";
+ };
+ 
+ &usdhc2 {
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate.dts b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+index 3655555fcd..ad3e8b51af 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate.dts
++++ b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+@@ -289,7 +289,6 @@
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
+ 	no-1-8-v;
+ 	mmc-ddr-1_8v;
+-	non-removable;
+ 	vqmmc-supply = <&reg_usdhc2_vqmmc>;
+ 	status = "okay";
+ };
+-- 
+2.17.1
+

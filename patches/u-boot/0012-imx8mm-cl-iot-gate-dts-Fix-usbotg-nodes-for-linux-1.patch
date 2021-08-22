@@ -1,0 +1,43 @@
+From 4a257b19748ca3593664d6f4d59317c3ff94fcc2 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 20 Aug 2021 11:22:29 +0300
+Subject: [PATCH 12/26] imx8mm-cl-iot-gate: dts: Fix usbotg nodes for linux #1
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm-cl-iot-gate.dts | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/arch/arm/dts/imx8mm-cl-iot-gate.dts b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+index a38f01922d..baa404cc8a 100644
+--- a/arch/arm/dts/imx8mm-cl-iot-gate.dts
++++ b/arch/arm/dts/imx8mm-cl-iot-gate.dts
+@@ -269,25 +269,13 @@
+ };
+ 
+ &usbotg1 {
+-	/delete-property/ phys;
+ 	/delete-property/ power-domains;
+-	assigned-clocks = <&clk IMX8MM_CLK_USB_BUS>,
+-			<&clk IMX8MM_CLK_USB_CORE_REF>;
+-	assigned-clock-parents = <&clk IMX8MM_SYS_PLL2_500M>,
+-				<&clk IMX8MM_SYS_PLL1_100M>;
+-	fsl,usbphy = <&usbphynop1>;
+ 	dr_mode = "host";
+ 	status = "okay";
+ };
+ 
+ &usbotg2 {
+-	/delete-property/ phys;
+ 	/delete-property/ power-domains;
+-	assigned-clocks = <&clk IMX8MM_CLK_USB_BUS>,
+-			<&clk IMX8MM_CLK_USB_CORE_REF>;
+-	assigned-clock-parents = <&clk IMX8MM_SYS_PLL2_500M>,
+-			<&clk IMX8MM_SYS_PLL1_100M>;
+-	fsl,usbphy = <&usbphynop2>;
+ 	dr_mode = "host";
+ 	status = "okay";
+ };
+-- 
+2.17.1
+

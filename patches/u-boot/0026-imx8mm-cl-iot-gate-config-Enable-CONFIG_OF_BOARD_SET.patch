@@ -1,0 +1,26 @@
+From d65fccd54fe79ceb686b0cd981fe5d9bd2b024c7 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sun, 22 Aug 2021 14:44:20 +0300
+Subject: [PATCH 26/26] imx8mm-cl-iot-gate: config: Enable
+ CONFIG_OF_BOARD_SETUP
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ configs/imx8mm-cl-iot-gate_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configs/imx8mm-cl-iot-gate_defconfig b/configs/imx8mm-cl-iot-gate_defconfig
+index d23971294b..eab26c1242 100644
+--- a/configs/imx8mm-cl-iot-gate_defconfig
++++ b/configs/imx8mm-cl-iot-gate_defconfig
+@@ -27,6 +27,7 @@ CONFIG_FIT_EXTERNAL_OFFSET=0x3000
+ CONFIG_FIT_SIGNATURE=y
+ CONFIG_SPL_LOAD_FIT=y
+ # CONFIG_USE_SPL_FIT_GENERATOR is not set
++CONFIG_OF_BOARD_SETUP=y
+ CONFIG_OF_SYSTEM_SETUP=y
+ CONFIG_SYS_EXTRA_OPTIONS="IMX_CONFIG=board/compulab/imx8mm-cl-iot-gate/imximage-8mm-lpddr4.cfg"
+ CONFIG_BOARD_LATE_INIT=y
+-- 
+2.17.1
+

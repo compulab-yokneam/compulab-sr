@@ -1,7 +1,7 @@
-From 050076b47faa1aa13bd5bb409c9232769740cf98 Mon Sep 17 00:00:00 2001
+From dd3023334d74ded01a9a7db7a30ae9b21cae8423 Mon Sep 17 00:00:00 2001
 From: Valentin Raevsky <valentin@compulab.co.il>
 Date: Tue, 27 Jul 2021 00:02:51 +0300
-Subject: [PATCH 2/2] Makefile: Add imx-boot.bin target
+Subject: [PATCH 01/26] Makefile: Add imx-boot.bin target
 
 Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
 ---
@@ -9,10 +9,10 @@ Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
  1 file changed, 4 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 9615f8b3a0..ef5233d7bb 100644
+index 2ab9c53192..794c59fd1b 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1425,6 +1425,10 @@ else
+@@ -1452,6 +1452,10 @@ else
  SPL_PAYLOAD := u-boot.bin
  endif
  
