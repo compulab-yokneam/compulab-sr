@@ -1,0 +1,28 @@
+From 88e9092140e51b7e5af92ec5de1ba8c565fdd873 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sun, 22 Aug 2021 09:56:51 +0300
+Subject: [PATCH 3/3] imx8mm: Disable pwr_domain_suspend, tbfixed
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ plat/imx/imx8m/imx8mm/imx8mm_psci.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/plat/imx/imx8m/imx8mm/imx8mm_psci.c b/plat/imx/imx8m/imx8mm/imx8mm_psci.c
+index e558724e8..7b3b42d1a 100644
+--- a/plat/imx/imx8m/imx8mm/imx8mm_psci.c
++++ b/plat/imx/imx8m/imx8mm/imx8mm_psci.c
+@@ -23,8 +23,10 @@ static const plat_psci_ops_t imx_plat_psci_ops = {
+ 	.validate_ns_entrypoint = imx_validate_ns_entrypoint,
+ 	.validate_power_state = imx_validate_power_state,
+ 	.cpu_standby = imx_cpu_standby,
++#if 0
+ 	.pwr_domain_suspend = imx_domain_suspend,
+ 	.pwr_domain_suspend_finish = imx_domain_suspend_finish,
++#endif
+ 	.pwr_domain_pwr_down_wfi = imx_pwr_domain_pwr_down_wfi,
+ 	.get_sys_suspend_power_state = imx_get_sys_suspend_power_state,
+ 	.system_reset = imx_system_reset,
+-- 
+2.17.1
+
