@@ -1,0 +1,43 @@
+From 1583b8bf0636d5082ab7c76ef24b42baccb495c0 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Thu, 26 Aug 2021 12:29:36 +0300
+Subject: [PATCH 28/31] imx8mm-cl-iot-gate: dts: Add busfreq node
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/arch/arm/dts/imx8mm.dtsi b/arch/arm/dts/imx8mm.dtsi
+index ec8d6bf456..51e19b5efa 100644
+--- a/arch/arm/dts/imx8mm.dtsi
++++ b/arch/arm/dts/imx8mm.dtsi
+@@ -260,6 +260,25 @@
+ 		clock-names = "main_clk";
+ 	};
+ 
++	busfreq { /* BUSFREQ */
++		compatible = "fsl,imx_busfreq";
++		clocks = <&clk IMX8MM_DRAM_PLL_OUT>, <&clk IMX8MM_CLK_DRAM_ALT>,
++			 <&clk IMX8MM_CLK_DRAM_APB>, <&clk IMX8MM_CLK_DRAM_APB>,
++		         <&clk IMX8MM_CLK_DRAM_CORE>, <&clk IMX8MM_CLK_DRAM_ALT_ROOT>,
++			 <&clk IMX8MM_SYS_PLL1_40M>, <&clk IMX8MM_SYS_PLL1_100M>,
++			 <&clk IMX8MM_SYS_PLL2_333M>, <&clk IMX8MM_CLK_NOC>,
++			 <&clk IMX8MM_CLK_AHB>, <&clk IMX8MM_CLK_MAIN_AXI>,
++			 <&clk IMX8MM_CLK_24M>, <&clk IMX8MM_SYS_PLL1_800M>,
++			 <&clk IMX8MM_DRAM_PLL>;
++		clock-names = "dram_pll", "dram_alt_src", "dram_apb_src", "dram_apb_pre_div",
++			      "dram_core", "dram_alt_root", "sys_pll1_40m", "sys_pll1_100m",
++			      "sys_pll2_333m", "noc_div", "ahb_div", "main_axi_src", "osc_24m",
++			      "sys_pll1_800m", "dram_pll_div";
++		interrupts = <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-name = "irq_busfreq_0", "irq_busfreq_1", "irq_busfreq_2", "irq_busfreq_3";
++	};
++
+ 	soc@0 {
+ 		compatible = "simple-bus";
+ 		#address-cells = <1>;
+-- 
+2.17.1
+

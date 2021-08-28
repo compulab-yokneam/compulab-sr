@@ -1,0 +1,92 @@
+From d7c8efbffa081563b1bddc5d67ac09b5dfa6bb23 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sat, 28 Aug 2021 11:33:44 +0300
+Subject: [PATCH 30/31] imx8mm: dts: Add pcie node
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/imx8mm.dtsi | 61 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+
+diff --git a/arch/arm/dts/imx8mm.dtsi b/arch/arm/dts/imx8mm.dtsi
+index 51e19b5efa..6ddf4e9628 100644
+--- a/arch/arm/dts/imx8mm.dtsi
++++ b/arch/arm/dts/imx8mm.dtsi
+@@ -689,6 +689,13 @@
+ 						reg = <IMX8MM_POWER_DOMAIN_MIPI>;
+ 						power-domains = <&dispmix_pd>;
+ 					};
++
++					pcie_pd: pcie-pd {
++						#power-domain-cells = <0>;
++						reg = <IMX8MM_POWER_DOMAIN_PCIE>;
++						power-domains = <&pgc_hsiomix>;
++						clocks = <&clk IMX8MM_CLK_PCIE1_ROOT>;
++					};
+ 				};
+ 			};
+ 		};
+@@ -1104,6 +1111,60 @@
+ 			status = "disabled";
+ 		};
+ 
++		pcie0: pcie@33800000 {
++			compatible = "fsl,imx8mm-pcie", "snps,dw-pcie";
++			reg = <0x33800000 0x400000>,
++				<0x1ff00000 0x80000>;
++			reg-names = "dbi", "config";
++			#address-cells = <3>;
++			#size-cells = <2>;
++			device_type = "pci";
++			bus-range = <0x00 0xff>;
++			ranges =  <0x81000000 0 0x00000000 0x1ff80000 0 0x00010000 /* downstream I/O 64KB */
++				   0x82000000 0 0x18000000 0x18000000 0 0x07f00000>; /* non-prefetchable memory */
++			num-lanes = <1>;
++			num-viewport = <4>;
++			interrupts = <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "msi";
++			#interrupt-cells = <1>;
++			interrupt-map-mask = <0 0 0 0x7>;
++			interrupt-map = <0 0 0 1 &gic GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 2 &gic GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 3 &gic GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 4 &gic GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>;
++			linux,pci-domain = <0>;
++			fsl,max-link-speed = <2>;
++			power-domains = <&pcie_pd>;
++			resets = <&src IMX8MQ_RESET_PCIEPHY>,
++				 <&src IMX8MQ_RESET_PCIE_CTRL_APPS_EN>,
++				 <&src IMX8MQ_RESET_PCIE_CTRL_APPS_CLK_REQ>,
++				 <&src IMX8MQ_RESET_PCIE_CTRL_APPS_TURNOFF>;
++			reset-names = "pciephy", "apps", "clkreq", "turnoff";
++			fsl,imx7d-pcie-phy = <&pcie_phy>;
++			status = "disabled";
++		};
++
++		pcie0_ep: pcie_ep@33800000 {
++			compatible = "fsl,imx8mm-pcie-ep";
++			reg = <0x33800000 0x000400000>,
++			      <0x18000000 0x08000000>;
++			reg-names = "regs", "addr_space";
++			num-lanes = <1>;
++			interrupts = <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>; /* eDMA */
++			interrupt-names = "dma";
++			fsl,max-link-speed = <2>;
++			power-domains = <&pcie_pd>;
++			resets = <&src IMX8MQ_RESET_PCIEPHY>,
++				 <&src IMX8MQ_RESET_PCIE_CTRL_APPS_EN>,
++				 <&src IMX8MQ_RESET_PCIE_CTRL_APPS_CLK_REQ>,
++				 <&src IMX8MQ_RESET_PCIE_CTRL_APPS_TURNOFF>;
++			reset-names = "pciephy", "apps", "clkreq", "turnoff";
++			fsl,imx7d-pcie-phy = <&pcie_phy>;
++			num-ib-windows = <4>;
++			num-ob-windows = <4>;
++			status = "disabled";
++		};
++
+ 		gic: interrupt-controller@38800000 {
+ 			compatible = "arm,gic-v3";
+ 			reg = <0x38800000 0x10000>, /* GIC Dist */
+-- 
+2.17.1
+
