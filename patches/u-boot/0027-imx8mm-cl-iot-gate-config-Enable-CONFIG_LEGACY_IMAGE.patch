@@ -1,7 +1,7 @@
-From e7577fec7e7df3bde86f8e6eda812d85e4f3b2ae Mon Sep 17 00:00:00 2001
+From 9e59a9ed8971423455537373f53cefc585a2427c Mon Sep 17 00:00:00 2001
 From: Valentin Raevsky <valentin@compulab.co.il>
 Date: Sat, 28 Aug 2021 11:30:21 +0300
-Subject: [PATCH 29/31] imx8mm-cl-iot-gate: config: Enable
+Subject: [PATCH 27/27] imx8mm-cl-iot-gate: config: Enable
  CONFIG_LEGACY_IMAGE_FORMAT
 
 Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
