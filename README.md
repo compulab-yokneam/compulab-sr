@@ -45,11 +45,11 @@ make
 ```
 * Verify the result
 ```
-stat image.d/imx-boot.bin
+ls -al out.d/imx-boot.bin out.d/capsule1.bin
 ```
 
 ## Deployment
 * Create a bootable SD-card
 ```bash
-sudo sudo dd if=image.d/imx-boot.bin of=/dev/sdX bs=1K seek=33
+sudo sudo dd if=out.d/imx-boot.bin of=/dev/sdX bs=1K seek=33
 ```
