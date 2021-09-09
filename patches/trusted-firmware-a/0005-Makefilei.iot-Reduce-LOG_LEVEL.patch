@@ -1,0 +1,27 @@
+From 13ea9d3c197ae0ecc65180dbcf30eb1cf1e7014a Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Thu, 9 Sep 2021 12:08:37 +0300
+Subject: [PATCH 5/5] Makefilei.iot: Reduce LOG_LEVEL
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ Makefile.iot | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile.iot b/Makefile.iot
+index 41b972a9e..5d07d63e7 100644
+--- a/Makefile.iot
++++ b/Makefile.iot
+@@ -10,7 +10,8 @@ MAKE_OPTIONS += BL32=$(INSTALL_DIR)/tee-header_v2.bin
+ MAKE_OPTIONS += BL32_EXTRA1=$(INSTALL_DIR)/tee-pager_v2.bin
+ MAKE_OPTIONS += BL32_EXTRA2=$(INSTALL_DIR)/tee-pageable_v2.bin
+ MAKE_OPTIONS += BL33=$(INSTALL_DIR)/u-boot.bin
+-MAKE_OPTIONS += LOG_LEVEL=50 USE_TBBR_DEFS=1 GENERATE_COT=1 TRUSTED_BOARD_BOOT=1
++MAKE_OPTIONS += USE_TBBR_DEFS=1 GENERATE_COT=1 TRUSTED_BOARD_BOOT=1
++MAKE_OPTIONS += LOG_LEVEL=8
+ 
+ IMAGES += $(INSTALL_DIR)/tee-header_v2.bin
+ IMAGES += $(INSTALL_DIR)/tee-pager_v2.bin
+-- 
+2.17.1
+
